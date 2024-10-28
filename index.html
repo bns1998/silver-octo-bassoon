@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام طلبات</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>نظام استلام الطلبات</h1>
+        <form id="orderForm" onsubmit="return false;">
+            <label for="orderNumber">رقم الطلب:</label>
+            <input type="text" id="orderNumber" required pattern="^[0-9]+$" title="يجب أن يكون رقم الطلب رقمًا صحيحًا.">
+
+            <label for="totalPrice">السعر الكلي:</label>
+            <input type="number" id="totalPrice" required min="1" step="1" title="يجب إدخال سعر كلي صحيح.">
+
+            <label for="deliveryPrice">سعر التوصيل:</label>
+            <div class="delivery-buttons">
+                <button type="button" class="delivery-button btn-basra" onclick="addOrder(3000)">البصرة (3 آلاف)</button>
+                <button type="button" class="delivery-button btn-governorates" onclick="addOrder(4000)">للمحافظات (4 آلاف)</button>
+            </div>
+        </form>
+
+        <button class="btn-clear" onclick="clearOrders()">مسح السجل</button>
+        <button class="btn-export" onclick="exportToExcel()">تصدير إلى Excel</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>رقم الطلب</th>
+                    <th>السعر الكلي</th>
+                    <th>سعر التوصيل</th>
+                    <th>السعر بدون توصيل</th>
+                    <th>الإجراء</th> <!-- عمود جديد للإجراء -->
+                </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+            </tbody>
+            <tfoot>
+                <tr class="total-row">
+                    <td colspan="3">المجموع النهائي للسعر بدون توصيل:</td>
+                    <td id="totalPriceWithoutDelivery">0</td>
+                    <td></td> <!-- خلية فارغة للعمود الجديد -->
+                </tr>
+                <tr class="total-row">
+                    <td colspan="3">المجموع النهائي للسعر مع التوصيل:</td>
+                    <td id="totalPriceWithDelivery">0</td>
+                    <td></td> <!-- خلية فارغة للعمود الجديد -->
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
